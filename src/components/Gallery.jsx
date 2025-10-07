@@ -2,18 +2,26 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+// Import semua gambar gallery
+import gallery1 from "/src/assets/gallery1.webp";
+import gallery2 from "/src/assets/gallery2.webp";
+import gallery3 from "/src/assets/gallery1.webp";
+import gallery4 from "/src/assets/gallery2.webp";
+import gallery5 from "/src/assets/gallery1.webp";
+import gallery6 from "/src/assets/gallery2.webp";
+
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
 
-  // CHANGE: Struktur data diubah untuk memiliki ID unik
+  // Struktur data dengan import statement
   const images = [
-    { id: 1, src: "/src/assets/gallery1.webp" },
-    { id: 2, src: "/src/assets/gallery2.webp" },
-    { id: 3, src: "/src/assets/gallery1.webp" },
-    { id: 4, src: "/src/assets/gallery2.webp" },
-    { id: 5, src: "/src/assets/gallery1.webp" },
-    { id: 6, src: "/src/assets/gallery2.webp" },
+    { id: 1, src: gallery1 },
+    { id: 2, src: gallery2 },
+    { id: 3, src: gallery3 },
+    { id: 4, src: gallery4 },
+    { id: 5, src: gallery5 },
+    { id: 6, src: gallery6 },
   ];
 
   const nextSlide = () =>
@@ -21,7 +29,6 @@ export default function Gallery() {
   const prevSlide = () =>
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
 
-  // CHANGE: Logika auto-play disempurnakan untuk pause on hover
   const startSlider = () => {
     intervalRef.current = setInterval(nextSlide, 3500);
   };
@@ -43,7 +50,7 @@ export default function Gallery() {
         ? adjustedDistance - images.length
         : adjustedDistance;
     return {
-      x: effectiveDistance * 200, // Sedikit menambah jarak
+      x: effectiveDistance * 200,
       scale: 1 - Math.abs(effectiveDistance) * 0.25,
       opacity: 1 - Math.abs(effectiveDistance) * 0.4,
       zIndex: 30 - Math.abs(effectiveDistance) * 5,
@@ -69,7 +76,6 @@ export default function Gallery() {
 
         <div
           className="relative max-w-7xl mx-auto h-[400px] md:h-[600px] lg:h-[700px]"
-          // CHANGE: Event listener untuk pause on hover
           onMouseEnter={stopSlider}
           onMouseLeave={startSlider}
         >
@@ -77,7 +83,6 @@ export default function Gallery() {
             <AnimatePresence>
               {images.map((image, index) => (
                 <motion.div
-                  // CHANGE: Menggunakan key dari ID unik
                   key={image.id}
                   className="absolute cursor-pointer rounded-2xl shadow-2xl overflow-hidden"
                   animate={calculateStyle(index)}
@@ -97,6 +102,7 @@ export default function Gallery() {
                     src={image.src}
                     alt={`Gallery image ${index + 1}`}
                     className="w-full h-full object-cover pointer-events-none"
+                    loading="lazy"
                   />
                   {index === currentIndex && (
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none rounded-2xl" />
@@ -106,7 +112,6 @@ export default function Gallery() {
             </AnimatePresence>
           </div>
 
-          {/* CHANGE: Padding & aria-label ditambahkan */}
           <button
             onClick={prevSlide}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-white/80 p-4 rounded-full shadow-lg hover:bg-white transition"
@@ -133,14 +138,12 @@ export default function Gallery() {
                   ? "bg-green-600 scale-125"
                   : "bg-green-300 hover:bg-green-400"
               }`}
-              // CHANGE: Aria-label ditambahkan
               aria-label={`Go to image ${index + 1}`}
             />
           ))}
         </div>
 
         <div className="flex justify-center mt-16">
-          {/* CHANGE: Menggunakan motion.a dengan link yang lebih sesuai */}
           <motion.a
             href="/gallery"
             className="bg-green-600 text-white font-semibold px-10 py-4 rounded-full hover:bg-green-700 transition text-lg shadow-lg"

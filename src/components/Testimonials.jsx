@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
 
+// Import video
+import testimonialVideo from "/src/assets/testimonial-main.mp4";
+
 export default function Testimonials() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(2);
@@ -81,12 +84,12 @@ export default function Testimonials() {
               {/* Video dalam bentuk lingkaran */}
               <div className="rounded-full overflow-hidden w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 xl:w-[450px] xl:h-[450px] shadow-2xl border-8 border-white">
                 <video
-                  src="/src/assets/testimonial-main.mp4"
+                  src={testimonialVideo}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover "
+                  className="w-full h-full object-cover"
                 >
                   Your browser does not support the video tag.
                 </video>

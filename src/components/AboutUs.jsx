@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
+// Import video dan gambar fallback
+import aboutVideo from "/src/assets/about-animation.mp4";
+
 export default function AboutUs() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -63,17 +66,17 @@ export default function AboutUs() {
 
           {/* Kolom kanan: Video */}
           <div className="flex-1 w-full">
-            <div className="relative rounded-2xl overflow-hidden  bg-gray-100">
+            <div className="relative rounded-2xl overflow-hidden bg-gray-100">
               {/* Loading State */}
               {!isVideoLoaded && !hasError && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse">
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-10">
                   <div className="text-gray-500 text-sm">Loading video...</div>
                 </div>
               )}
 
               {/* Error State */}
               {hasError && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-200 z-20">
                   <div className="text-gray-500 text-center">
                     <div className="text-lg mb-2">Video tidak dapat dimuat</div>
                     <button
@@ -89,7 +92,7 @@ export default function AboutUs() {
               {/* Video Element dengan Optimasi */}
               <video
                 ref={videoRef}
-                src="/src/assets/about-animation.mp4"
+                src={aboutVideo}
                 autoPlay
                 loop
                 muted
@@ -112,9 +115,9 @@ export default function AboutUs() {
               {/* Fallback image jika video gagal */}
               {hasError && (
                 <img
-                  src="/src/assets/about-animation-poster.jpg" // Buat poster frame dari video
+                  src=""
                   alt="About Artha Bonsai"
-                  className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
+                  className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover absolute inset-0 z-30"
                 />
               )}
             </div>

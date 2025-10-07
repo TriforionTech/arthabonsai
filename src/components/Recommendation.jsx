@@ -1,15 +1,19 @@
+// Import gambar
+import recommend1 from "/src/assets/recommend1.webp";
+import recommend2 from "/src/assets/recommend2.webp";
+
 export default function Recommendation() {
   const recommendations = [
     {
       id: 1,
-      image: "/src/assets/recommend1.webp",
+      image: recommend1,
       title: "Premium Bonsai Collection",
       subtitle: "Expertly curated for beginners",
       price: "$199 - $499",
     },
     {
       id: 2,
-      image: "/src/assets/recommend2.webp",
+      image: recommend2,
       title: "Advanced Masterpieces",
       subtitle: "For seasoned collectors",
       price: "$599 - $1,299",
@@ -18,11 +22,9 @@ export default function Recommendation() {
 
   return (
     <section className="w-full py-20 bg-gray-50">
-      {/* CHANGE: Padding horizontal disamakan untuk konsistensi */}
       <div className="max-w-screen-xl mx-auto px-6">
         {/* Title & subtitle */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
-          {/* CHANGE: Ukuran font diperbesar agar konsisten dengan judul section lain */}
           <h2 className="text-3xl text-green-800 font-bold mb-3">
             Looking for the Perfect Bonsai?
           </h2>
@@ -34,12 +36,11 @@ export default function Recommendation() {
         {/* Konten dua kolom */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {recommendations.map((item) => (
-            // CHANGE: Struktur kartu diubah total
             <div
               key={item.id}
               className="group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white cursor-pointer"
             >
-              {/* 1. Bagian Gambar */}
+              {/* Bagian Gambar */}
               <div className="w-full h-[350px] overflow-hidden">
                 <img
                   src={item.image}
@@ -49,7 +50,7 @@ export default function Recommendation() {
                 />
               </div>
 
-              {/* 2. Bagian Konten Teks (Selalu Terlihat) */}
+              {/* Bagian Konten Teks (Selalu Terlihat) */}
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-2 text-gray-800">
                   {item.title}

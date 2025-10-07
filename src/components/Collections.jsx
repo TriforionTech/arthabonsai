@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 
+// Import semua gambar
+import bonsai1 from "/src/assets/bonsai1.webp";
+import bonsai2 from "/src/assets/bonsai2.webp";
+import bonsai3 from "/src/assets/bonsai3.webp";
+import bonsai4 from "/src/assets/bonsai4.webp";
+
 export default function Collections() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -7,7 +13,7 @@ export default function Collections() {
   const items = [
     {
       id: 1,
-      image: "/src/assets/bonsai1.webp",
+      image: bonsai1,
       title: "Japanese Maple",
       subtitle: "Elegant & Serene",
       price: "$299",
@@ -15,7 +21,7 @@ export default function Collections() {
     },
     {
       id: 2,
-      image: "/src/assets/bonsai2.webp",
+      image: bonsai2,
       title: "Pine Bonsai",
       subtitle: "Ancient Wisdom",
       price: "$459",
@@ -23,7 +29,7 @@ export default function Collections() {
     },
     {
       id: 3,
-      image: "/src/assets/bonsai3.webp",
+      image: bonsai3,
       title: "Juniper Classic",
       subtitle: "Timeless Beauty",
       price: "$389",
@@ -31,7 +37,7 @@ export default function Collections() {
     },
     {
       id: 4,
-      image: "/src/assets/bonsai4.webp",
+      image: bonsai4,
       title: "Flowering Cherry",
       subtitle: "Spring Delight",
       price: "$529",
@@ -39,7 +45,7 @@ export default function Collections() {
     },
     {
       id: 5,
-      image: "/src/assets/bonsai1.webp",
+      image: bonsai1,
       title: "Zen Garden",
       subtitle: "Peaceful Harmony",
       price: "$649",
@@ -47,7 +53,7 @@ export default function Collections() {
     },
     {
       id: 6,
-      image: "/src/assets/bonsai2.webp",
+      image: bonsai2,
       title: "Dragon Willow",
       subtitle: "Mystical Charm",
       price: "$429",
@@ -55,7 +61,7 @@ export default function Collections() {
     },
     {
       id: 7,
-      image: "/src/assets/bonsai3.webp",
+      image: bonsai3,
       title: "Imperial Oak",
       subtitle: "Majestic Presence",
       price: "$799",
@@ -63,7 +69,7 @@ export default function Collections() {
     },
     {
       id: 8,
-      image: "/src/assets/bonsai4.webp",
+      image: bonsai4,
       title: "Miniature Forest",
       subtitle: "Nature in Small",
       price: "$699",
@@ -200,7 +206,6 @@ export default function Collections() {
 
                   {/* Konten Hover */}
                   <div className="absolute inset-0 flex items-end">
-                    {/* BUG FIX: Kelas di bawah ini diperbaiki agar konten tersembunyi sebelum hover */}
                     <div className="w-full p-6 transform opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-in-out">
                       <div className="text-white">
                         <h3 className="text-xl font-bold mb-1">{item.title}</h3>
