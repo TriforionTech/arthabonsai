@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
 
 // Import video
-import testimonialVideo from "/src/assets/testimonial-main.mp4";
+import testimonialVideo from "/src/assets/videos/testimonial-main.mp4";
 
 export default function Testimonials() {
   const [currentSlide, setCurrentSlide] = useState(0);

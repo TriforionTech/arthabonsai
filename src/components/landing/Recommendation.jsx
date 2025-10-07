@@ -1,6 +1,6 @@
 // Import gambar
-import recommend1 from "/src/assets/recommend1.webp";
-import recommend2 from "/src/assets/recommend2.webp";
+import recommend1 from "/src/assets/images/landing/recommend1.webp";
+import recommend2 from "/src/assets/images/landing/recommend2.webp";
 
 export default function Recommendation() {
   const recommendations = [

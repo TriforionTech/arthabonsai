@@ -1,16 +1,16 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Stats from "../components/Stats";
-import Collections from "../components/Collections";
-import Recommendation from "../components/Recommendation";
-import AboutUs from "../components/AboutUs";
-import Partners from "../components/Partners";
-import Testimonials from "../components/Testimonials";
-import Gallery from "../components/Gallery";
-import HowToOrder from "../components/HowToOrder";
-import Location from "../components/Location";
-import FAQ from "../components/FAQ";
-import Footer from "../components/Footer";
+import Navbar from "../components/common/Navbar";
+import Hero from "../components/landing/Hero";
+import Stats from "../components/landing/Stats";
+import Collections from "../components/landing/Collections";
+import Recommendation from "../components/landing/Recommendation";
+import AboutUs from "../components/landing/AboutUs";
+import Partners from "../components/landing/Partners";
+import Testimonials from "../components/landing/Testimonials";
+import Gallery from "../components/landing/Gallery";
+import HowToOrder from "../components/landing/HowToOrder";
+import Location from "../components/landing/Location";
+import FAQ from "../components/landing/FAQ";
+import Footer from "../components/common/Footer";
 
 export default function Landing() {
   return (

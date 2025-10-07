@@ -1,6 +1,6 @@
 import { useState } from "react";
-import partner1 from "/src/assets/partner1.png";
-import partner2 from "/src/assets/partner2.png";
+import partner1 from "/src/assets/images/landing/partner1.png";
+import partner2 from "/src/assets/images/landing/partner2.png";
 
 export default function Partners() {
   const [hoveredPartner, setHoveredPartner] = useState(null);

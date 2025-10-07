@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AppRouter from "../router/AppRouter";
+import AppRouter from "../../router/AppRouter";
 import LoadingScreen from "./LoadingScreen";
 
 export default function AppLoader() {

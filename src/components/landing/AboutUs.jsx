@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 // Import video dan gambar fallback
-import aboutVideo from "/src/assets/about-animation.mp4";
+import aboutVideo from "/src/assets/videos/about-animation.mp4";
 
 export default function AboutUs() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);

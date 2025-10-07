@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
 // Import semua gambar
-import bonsai1 from "/src/assets/bonsai1.webp";
-import bonsai2 from "/src/assets/bonsai2.webp";
-import bonsai3 from "/src/assets/bonsai3.webp";
-import bonsai4 from "/src/assets/bonsai4.webp";
+import bonsai1 from "/src/assets/images/landing/bonsai1.webp";
+import bonsai2 from "/src/assets/images/landing/bonsai2.webp";
+import bonsai3 from "/src/assets/images/landing/bonsai3.webp";
+import bonsai4 from "/src/assets/images/landing/bonsai4.webp";
 
 export default function Collections() {
   const [currentIndex, setCurrentIndex] = useState(0);

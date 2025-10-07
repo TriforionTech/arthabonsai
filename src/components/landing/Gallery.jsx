@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Import semua gambar gallery
-import gallery1 from "/src/assets/gallery1.webp";
-import gallery2 from "/src/assets/gallery2.webp";
-import gallery3 from "/src/assets/gallery1.webp";
-import gallery4 from "/src/assets/gallery2.webp";
-import gallery5 from "/src/assets/gallery1.webp";
-import gallery6 from "/src/assets/gallery2.webp";
+import gallery1 from "/src/assets/images/landing/gallery1.webp";
+import gallery2 from "/src/assets/images/landing/gallery2.webp";
+import gallery3 from "/src/assets/images/landing/gallery1.webp";
+import gallery4 from "/src/assets/images/landing/gallery2.webp";
+import gallery5 from "/src/assets/images/landing/gallery1.webp";
+import gallery6 from "/src/assets/images/landing/gallery2.webp";
 
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);

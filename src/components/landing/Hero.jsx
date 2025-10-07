@@ -1,6 +1,6 @@
 // src/components/Hero.jsx
 
-import heroBg from "/src/assets/hero-bg.webp"; // 1. Import gambar
+import heroBg from "/src/assets/images/landing/hero-bg.webp"; // 1. Import gambar
 import Button from "./Button"; // 2. Import komponen Button
 
 export default function Hero() {
