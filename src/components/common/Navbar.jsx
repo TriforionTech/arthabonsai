@@ -27,7 +27,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "About Us", path: "/about" },
-    { label: "Collections", path: "#collections" },
+    { label: "Collections", path: "/collections" },
     { label: "Gallery", path: "#gallery" },
     { label: "Contact Us", path: "#location" }, // Menyesuaikan dengan ID section
   ];
