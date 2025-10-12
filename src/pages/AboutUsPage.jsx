@@ -1,229 +1,322 @@
 import Navbar from "../components/common/Navbar";
-// import Footer from "../components/Footer";
+import Footer from "../components/common/Footer";
+
+// Impor video (pastikan path ini sesuai dengan struktur proyek Anda)
+import aboutVideo from "/src/assets/videos/about-animation.mp4";
+
+// Impor gambar (ganti dengan gambar-gambar relevan dari proyek Anda)
+import galleryImg1 from "/src/assets/images/landing/gallery1.webp";
+import galleryImg2 from "/src/assets/images/landing/gallery2.webp";
+import founderImg from "/src/assets/images/landing/bonsai2.webp"; // Contoh gambar founder
+
+// Komponen Ikon untuk digunakan di dalam Blurbs/Features
+const IconWrapper = ({ children }) => (
+  <div className="flex items-center justify-center w-16 h-16 mb-6 bg-green-100 rounded-full">
+    {children}
+  </div>
+);
+
+// Komponen untuk FAQ (Accordion)
+const FaqItem = ({ title, children }) => (
+  <details className="w-full bg-white border border-gray-200 rounded-lg cursor-pointer">
+    <summary className="p-6 text-lg font-semibold text-green-800">
+      {title}
+    </summary>
+    <div className="px-6 pb-6 text-gray-600">{children}</div>
+  </details>
+);
 
 export default function AboutUsPage() {
   return (
-    <div className="font-sans text-gray-800">
+    <div className="font-sans bg-gray-50 text-gray-800">
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-green-100 px-4">
-        <div className="max-w-4xl text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-green-700 mb-6">
-            About Artha Bonsai
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-            From apple orchards to the international bonsai stage, Pak Arpai proves that 
-            bonsai is more than just art — it's a legacy.
-          </p>
-          <div className="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Artha Bonsai was born to nurture beauty, shape patience, and grow a new 
-            generation of nature lovers through the ancient art of bonsai cultivation.
-          </p>
-        </div>
-      </section>
 
-      {/* Our Story Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-green-700 mb-6">Our Story</h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                It all began in a humble apple orchard, where Pak Arpai first discovered 
-                his passion for nurturing and shaping living art. What started as a simple 
-                appreciation for nature's beauty evolved into a lifelong dedication to the 
-                ancient art of bonsai.
-              </p>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Through years of patient cultivation and continuous learning, Pak Arpai 
-                transformed his hobby into an internationally recognized craft. Today, 
-                Artha Bonsai stands as a testament to the power of patience, dedication, 
-                and the profound connection between humans and nature.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                Our journey from local enthusiast to international stage represents more 
-                than personal achievement—it embodies our commitment to preserving and 
-                sharing this timeless art form with future generations.
-              </p>
+      <main>
+        {/* 1. Hero Section - Terinspirasi dari Referensi */}
+        <section
+          className="relative flex items-center justify-center h-[60vh] md:h-[80vh] bg-cover bg-center text-white"
+          style={{ backgroundImage: `url(${galleryImg1})` }}
+        >
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="relative z-10 text-center px-4">
+            <h5 className="text-lg md:text-xl font-bold uppercase tracking-[0.5em] text-gray-200 mb-4">
+              About
+            </h5>
+            <h1 className="text-4xl md:text-6xl font-bold">
+              About Us <br />& Our Passion
+            </h1>
+          </div>
+        </section>
+
+        {/* 2. Intro Blurbs Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-screen-xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+              <div className="flex flex-col items-center">
+                <IconWrapper>
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </IconWrapper>
+                <h5 className="text-xl font-semibold text-green-800">
+                  From Malang
+                </h5>
+              </div>
+              <div className="flex flex-col items-center">
+                <IconWrapper>
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                </IconWrapper>
+                <h5 className="text-xl font-semibold text-green-800">
+                  20+ Years Experience
+                </h5>
+              </div>
+              <div className="flex flex-col items-center">
+                <IconWrapper>
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </IconWrapper>
+                <h5 className="text-xl font-semibold text-green-800">
+                  100+ Customers
+                </h5>
+              </div>
+              <div className="flex flex-col items-center">
+                <IconWrapper>
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"
+                    />
+                  </svg>
+                </IconWrapper>
+                <h5 className="text-xl font-semibold text-green-800">
+                  Starting @1jt/bonsai
+                </h5>
+              </div>
             </div>
-            <div className="bg-green-50 rounded-lg p-8">
-              <h3 className="text-2xl font-semibold text-green-700 mb-4">Our Journey</h3>
+          </div>
+        </section>
+
+        {/* 3. Our Story Section with Video */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-screen-xl mx-auto px-6 text-center">
+            <h6 className="text-md font-bold uppercase tracking-widest text-green-600 mb-2">
+              History
+            </h6>
+            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+              Malang, est. 2000s
+            </h2>
+            <p className="max-w-3xl mx-auto text-gray-600 leading-relaxed mb-12">
+              It all began in a humble apple orchard, where Pak Arpai first
+              discovered his passion for nurturing and shaping living art. What
+              started as a simple appreciation for nature's beauty evolved into
+              a lifelong dedication to the ancient art of bonsai. Through years
+              of patient cultivation, Artha Bonsai now stands as a testament to
+              the power of patience, dedication, and the profound connection
+              between humans and nature.
+            </p>
+            <div className="rounded-2xl overflow-hidden shadow-xl max-w-4xl mx-auto">
+              <video
+                src={aboutVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto object-cover"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Founder Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-screen-md mx-auto px-6 text-center">
+            <img
+              src={founderImg}
+              alt="Pak Arpai, Founder of Artha Bonsai"
+              className="w-40 h-40 mx-auto rounded-full object-cover mb-6 shadow-lg"
+            />
+            <h6 className="text-md font-bold uppercase tracking-widest text-green-600 mb-2">
+              Your Host
+            </h6>
+            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">
+              Pak Arpai
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              With over two decades of experience, Pak Arpai has transformed
+              from a simple orchard keeper into an internationally recognized
+              master of the art. His philosophy centers on the belief that
+              bonsai is not just about shaping trees, but about cultivating
+              patience, mindfulness, and a deep connection with nature.
+            </p>
+          </div>
+        </section>
+
+        {/* 5. Our Values/Features Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-screen-xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+              <div className="text-left">
+                <h5 className="text-xl font-bold text-green-800 mb-3">
+                  Patience
+                </h5>
+                <p className="text-gray-600">
+                  True artistry takes time. Our creations emerge through mindful
+                  cultivation over years.
+                </p>
+              </div>
+              <div className="text-left">
+                <h5 className="text-xl font-bold text-green-800 mb-3">
+                  Passion
+                </h5>
+                <p className="text-gray-600">
+                  Driven by an unwavering love for the art and a deep respect
+                  for the living sculptures we nurture.
+                </p>
+              </div>
+              <div className="text-left">
+                <h5 className="text-xl font-bold text-green-800 mb-3">
+                  Community
+                </h5>
+                <p className="text-gray-600">
+                  Building bridges between generations of artists and fostering
+                  a supportive community.
+                </p>
+              </div>
+              <div className="text-left">
+                <h5 className="text-xl font-bold text-green-800 mb-3">
+                  Authenticity
+                </h5>
+                <p className="text-gray-600">
+                  Each bonsai has a unique story and character, shaped with
+                  genuine care and expertise.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. FAQ Section - Terinspirasi dari Referensi */}
+        <section className="py-20 bg-white">
+          <div className="max-w-screen-xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <h6 className="text-md font-bold uppercase tracking-widest text-green-600 mb-2">
+                Have a Question?
+              </h6>
+              <h2 className="text-3xl md:text-4xl font-bold text-green-800">
+                Policies & F.A.Q.
+              </h2>
+            </div>
+            <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="w-4 h-4 bg-green-600 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">From Apple Orchards</h4>
-                    <p className="text-gray-600 text-sm">Started with a simple love for cultivating nature</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-4 h-4 bg-green-600 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Mastering the Art</h4>
-                    <p className="text-gray-600 text-sm">Years of dedication to perfecting bonsai techniques</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-4 h-4 bg-green-600 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">International Recognition</h4>
-                    <p className="text-gray-600 text-sm">Showcasing our craft on the global stage</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="w-4 h-4 bg-green-600 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Building Legacy</h4>
-                    <p className="text-gray-600 text-sm">Inspiring the next generation of bonsai enthusiasts</p>
-                  </div>
-                </div>
+                <FaqItem title="Bagaimana cara merawat bonsai?">
+                  <p>
+                    Perawatan bonsai meliputi penyiraman rutin, pemupukan
+                    berkala, pemangkasan untuk menjaga bentuk, dan penggantian
+                    pot setiap beberapa tahun.
+                  </p>
+                </FaqItem>
+                <FaqItem title="Apakah bonsai bisa dikirim ke luar kota?">
+                  <p>
+                    Ya, kami menyediakan layanan pengiriman ke seluruh Indonesia
+                    dengan packing kayu yang aman untuk memastikan bonsai Anda
+                    tiba dalam kondisi sempurna.
+                  </p>
+                </FaqItem>
+              </div>
+              <div className="space-y-4">
+                <FaqItem title="Berapa lama bonsai bisa hidup?">
+                  <p>
+                    Dengan perawatan yang tepat, bonsai dapat hidup selama
+                    puluhan hingga ratusan tahun, menjadi warisan yang tak
+                    ternilai.
+                  </p>
+                </FaqItem>
+                <FaqItem title="Apakah ada garansi?">
+                  <p>
+                    Kami memberikan garansi pengiriman. Jika bonsai rusak saat
+                    tiba, kami akan menggantinya dengan yang baru. Hubungi kami
+                    maksimal 1x24 jam setelah barang diterima.
+                  </p>
+                </FaqItem>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Mission & Vision Section */}
-      <section className="py-20 px-4 bg-green-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-green-700 mb-4">Mission & Vision</h2>
-            <div className="w-24 h-1 bg-green-600 mx-auto"></div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white rounded-lg p-8 shadow-lg">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-green-700">Our Mission</h3>
+        {/* 7. Call to Action Section */}
+        <section className="bg-green-700 text-white">
+          <div className="max-w-screen-xl mx-auto px-6 py-16">
+            <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+              <div>
+                <h6 className="text-md font-bold uppercase tracking-widest mb-2">
+                  Visit Malang in Style
+                </h6>
+                <h2 className="text-3xl md:text-4xl font-bold">
+                  We Have a Bonsai for You!
+                </h2>
               </div>
-              <p className="text-gray-600 text-center leading-relaxed">
-                To nurture beauty, cultivate patience, and foster a deep connection between 
-                people and nature through the timeless art of bonsai. We strive to preserve 
-                traditional techniques while making this ancient practice accessible to 
-                modern enthusiasts.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-8 shadow-lg">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-green-700">Our Vision</h3>
+              <div className="mt-6 md:mt-0">
+                <a
+                  href="/collection"
+                  className="inline-block px-10 py-4 bg-white text-green-700 font-bold rounded-full hover:bg-gray-200 transition"
+                >
+                  Book a Bonsai
+                </a>
               </div>
-              <p className="text-gray-600 text-center leading-relaxed">
-                To become a globally recognized center of excellence in bonsai cultivation, 
-                inspiring a new generation of nature lovers and artists who understand that 
-                true beauty comes from patience, dedication, and harmony with the natural world.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Values Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-green-700 mb-4">Our Values</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
-              These core principles guide every aspect of our work and define who we are as artisans and educators.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-green-700 mb-3">Patience</h3>
-              <p className="text-gray-600">
-                Understanding that true artistry takes time, and the most beautiful creations 
-                emerge through patient, mindful cultivation over years.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-green-700 mb-3">Passion</h3>
-              <p className="text-gray-600">
-                Driven by an unwavering love for the art of bonsai and a deep respect 
-                for the living sculptures we create and nurture.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-green-700 mb-3">Community</h3>
-              <p className="text-gray-600">
-                Building bridges between generations of artists and fostering a supportive 
-                community where knowledge and appreciation for bonsai can flourish.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Meet Our Founder Section */}
-      <section className="py-20 px-4 bg-green-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-green-700 mb-8">Meet Our Founder</h2>
-          <div className="bg-white rounded-lg p-8 shadow-lg">
-            <div className="w-32 h-32 bg-green-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-              <span className="text-3xl font-bold text-green-700">PA</span>
-            </div>
-            <h3 className="text-2xl font-bold text-green-700 mb-2">Pak Arpai</h3>
-            <p className="text-green-600 mb-4">Master Bonsai Artist & Founder</p>
-            <p className="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-              With over two decades of experience in bonsai cultivation, Pak Arpai has transformed 
-              from a simple orchard keeper into an internationally recognized master of the art. 
-              His philosophy centers on the belief that bonsai is not just about shaping trees, 
-              but about cultivating patience, mindfulness, and a deep connection with nature. 
-              Through Artha Bonsai, he continues to share this wisdom with enthusiasts around the world.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 px-4 bg-green-700 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Join Our Journey</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Discover the art of bonsai and become part of our growing community of nature lovers and artists.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Explore Our Collection
-            </button>
-            <button className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors">
-              Contact Us
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

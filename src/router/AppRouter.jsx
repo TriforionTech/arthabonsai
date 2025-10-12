@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "../pages/Landing";
 import AboutUsPage from "../pages/AboutUsPage";
 import CollectionPage from "../pages/CollectionPage";
+import GalleryPage from "../pages/GalleryPage";
+import ContactPage from "../pages/ContactPage";
 
 export default function AppRouter() {
   return (
@@ -10,6 +12,8 @@ export default function AppRouter() {
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/collection" element={<CollectionPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </Router>
   );

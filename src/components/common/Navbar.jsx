@@ -26,10 +26,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
+    { label: "Home", path: "/" },
     { label: "About Us", path: "/about" },
     { label: "Collections", path: "/collection" },
-    { label: "Gallery", path: "#gallery" },
-    { label: "Contact Us", path: "#location" }, // Menyesuaikan dengan ID section
+    { label: "Gallery", path: "/gallery" },
+    { label: "Contact Us", path: "/contact" }, // Menyesuaikan dengan ID section
   ];
 
   // ... (useEffect hooks Anda tetap sama)
