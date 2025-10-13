@@ -83,13 +83,23 @@ const HeroSection = ({ featuredProducts, onExploreClick }) => {
         src: heroBg,
         title: "Premium Collection",
         subtitle: "Discover Excellence",
+        description:
+          "Koleksi bonsai premium yang dipilih secara eksklusif untuk para kolektor dan pecinta seni hidup.",
       },
       {
         src: gallery1,
         title: "Master Crafted",
         subtitle: "Artistic Perfection",
+        description:
+          "Setiap karya dibentuk dengan keahlian master bonsai berpengalaman puluhan tahun.",
       },
-      { src: gallery2, title: "Living Art", subtitle: "Nature's Masterpiece" },
+      {
+        src: gallery2,
+        title: "Living Art",
+        subtitle: "Nature's Masterpiece",
+        description:
+          "Seni hidup yang menggabungkan filosofi Zen dengan keindahan alam yang menakjubkan.",
+      },
     ],
     []
   );
@@ -100,13 +110,15 @@ const HeroSection = ({ featuredProducts, onExploreClick }) => {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
+    }, 6000); // Increased to 6 seconds for better reading time
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, heroImages.length]);
 
   // Preload hero images
   usePreloadImages(heroImages.map((img) => img.src));
+
+  const currentHeroData = heroImages[currentSlide];
 
   return (
     <section className="relative h-screen overflow-hidden">
@@ -115,8 +127,10 @@ const HeroSection = ({ featuredProducts, onExploreClick }) => {
         {heroImages.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-all duration-1500 ${
+              index === currentSlide
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-105"
             }`}
           >
             <img
@@ -124,99 +138,112 @@ const HeroSection = ({ featuredProducts, onExploreClick }) => {
               alt={image.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent" />
+            {/* Enhanced gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20" />
           </div>
         ))}
       </div>
 
-      {/* Content */}
+      {/* Main Content - Centered and Focused */}
       <div className="relative z-10 h-full flex items-center">
         <div className="max-w-7xl mx-auto px-4 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="text-white">
-              <div className="mb-6">
-                <span className="inline-block px-4 py-2 bg-green-600 text-sm font-semibold uppercase tracking-wider rounded-full mb-4">
-                  Welcome to Artha Bonsai
-                </span>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-                  Discover the Art of
-                  <span className="block text-green-400">Living Sculpture</span>
-                </h1>
-                <p className="text-xl text-gray-300 mb-8 max-w-xl">
-                  Koleksi bonsai premium yang dipilih secara eksklusif untuk
-                  para kolektor dan pecinta seni hidup. Setiap karya memiliki
-                  cerita dan karakter unik yang menakjubkan.
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={onExploreClick}
-                  className="px-8 py-4 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
-                >
-                  Jelajahi Koleksi
-                </button>
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById("about-preview")
-                      .scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300"
-                >
-                  Pelajari Lebih Lanjut
-                </button>
-              </div>
-
-              {/* Quick Stats */}
-              <div className="flex gap-8 mt-12">
-                <div>
-                  <div className="text-3xl font-bold text-green-400">
-                    {featuredProducts.length}+
-                  </div>
-                  <div className="text-sm text-gray-400">
-                    Premium Collection
-                  </div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-green-400">15+</div>
-                  <div className="text-sm text-gray-400">Years Experience</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-green-400">2.5K+</div>
-                  <div className="text-sm text-gray-400">Happy Customers</div>
-                </div>
-              </div>
+          <div className="max-w-4xl">
+            {" "}
+            {/* Focused content width */}
+            {/* Badge with current slide info */}
+            <div className="mb-6">
+              <span className="inline-flex items-center gap-2 px-6 py-3 bg-green-600/90 backdrop-blur-sm text-white text-sm font-semibold uppercase tracking-wider rounded-full mb-4">
+                <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                {currentHeroData.subtitle}
+              </span>
             </div>
+            {/* Dynamic Title based on current slide */}
+            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
+              <span className="block transition-all duration-700">
+                {currentHeroData.title}
+              </span>
+              <span className="block text-green-400 text-4xl md:text-5xl mt-2">
+                Artha Bonsai Studio
+              </span>
+            </h1>
+            {/* Dynamic description */}
+            <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl leading-relaxed">
+              {currentHeroData.description}
+            </p>
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <button
+                onClick={onExploreClick}
+                className="group px-10 py-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+              >
+                <span className="flex items-center gap-2">
+                  Jelajahi Koleksi
+                  <svg
+                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+              </button>
 
-            {/* Featured Product Showcase */}
-            <div className="hidden lg:block">
-              <div className="relative">
-                <div className="grid grid-cols-2 gap-4">
-                  {featuredProducts.slice(0, 4).map((product, index) => (
-                    <div
-                      key={product.id}
-                      className={`bg-white/10 backdrop-blur-sm rounded-lg p-4 transform transition-all duration-500 hover:scale-105 ${
-                        index === 0 ? "col-span-2" : ""
-                      }`}
-                    >
-                      <img
-                        src={product.images.thumbnail}
-                        alt={product.title}
-                        className="w-full h-32 object-cover rounded-lg mb-3"
-                      />
-                      <h3 className="text-white font-semibold text-sm">
-                        {product.title}
-                      </h3>
-                      <p className="text-gray-300 text-xs">
-                        {product.subtitle}
-                      </p>
-                      <p className="text-green-400 font-bold text-sm mt-2">
-                        Rp {product.price.toLocaleString()}
-                      </p>
-                    </div>
-                  ))}
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("about-preview")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+                className="group px-10 py-4 border-2 border-white/80 text-white font-bold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300 backdrop-blur-sm"
+              >
+                <span className="flex items-center gap-2">
+                  Tentang Kami
+                  <svg
+                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+            {/* Enhanced Stats Section */}
+            <div className="grid grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-green-400 mb-2">
+                  {featuredProducts.length}+
+                </div>
+                <div className="text-sm text-gray-300 uppercase tracking-wide">
+                  Premium Bonsai
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-green-400 mb-2">
+                  15+
+                </div>
+                <div className="text-sm text-gray-300 uppercase tracking-wide">
+                  Tahun Pengalaman
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-green-400 mb-2">
+                  2.5K+
+                </div>
+                <div className="text-sm text-gray-300 uppercase tracking-wide">
+                  Pelanggan Puas
                 </div>
               </div>
             </div>
@@ -224,38 +251,75 @@ const HeroSection = ({ featuredProducts, onExploreClick }) => {
         </div>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              setCurrentSlide(index);
-              setIsAutoPlaying(false);
-            }}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentSlide ? "bg-white" : "bg-white/40"
-            }`}
-          />
-        ))}
+      {/* Enhanced Slide Indicators */}
+      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="flex items-center gap-4 bg-black/20 backdrop-blur-sm rounded-full px-6 py-3">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentSlide(index);
+                setIsAutoPlaying(false);
+              }}
+              className={`relative transition-all duration-300 ${
+                index === currentSlide
+                  ? "w-8 h-3 bg-white rounded-full"
+                  : "w-3 h-3 bg-white/40 rounded-full hover:bg-white/60"
+              }`}
+            >
+              {/* Progress bar for active slide */}
+              {index === currentSlide && (
+                <div
+                  className="absolute inset-0 bg-green-400 rounded-full origin-left transition-all"
+                  style={{
+                    animation: isAutoPlaying
+                      ? "progressBar 6s linear infinite"
+                      : "none",
+                  }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 right-8 animate-bounce">
-        <svg
-          className="w-6 h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
+      {/* Floating Quick Action */}
+      <div className="absolute bottom-12 right-8 z-20 hidden lg:block">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+          <div className="text-white text-center mb-3">
+            <div className="text-2xl font-bold">{featuredProducts.length}</div>
+            <div className="text-xs opacity-80">Koleksi Tersedia</div>
+          </div>
+          <button
+            onClick={onExploreClick}
+            className="w-full px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Lihat Semua
+          </button>
+        </div>
       </div>
+
+      {/* Enhanced Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 lg:hidden">
+        <div className="flex flex-col items-center gap-2 text-white/80">
+          <div className="text-xs uppercase tracking-wider">Scroll Down</div>
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* CSS Animation for progress bar */}
+      <style jsx>{`
+        @keyframes progressBar {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
+        }
+      `}</style>
     </section>
   );
 };
