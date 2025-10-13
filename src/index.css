@@ -4,6 +4,8 @@
 :root {
   --color-primary: #d9caad;
   --color-secondary: #e9ff00;
+  --navbar-height-mobile: 64px;
+  --navbar-height-desktop: 80px;
 }
 
 @theme {
@@ -15,5 +17,16 @@
 @layer base {
   html {
     font-family: var(--font-family-sans);
+  }
+}
+.hero-section {
+  height: calc(100vh - var(--navbar-height-mobile));
+  padding-top: var(--navbar-height-mobile);
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    height: calc(100vh - var(--navbar-height-desktop));
+    padding-top: var(--navbar-height-desktop);
   }
 }
