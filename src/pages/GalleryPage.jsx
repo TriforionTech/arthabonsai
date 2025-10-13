@@ -147,6 +147,38 @@ const InfoIcon = () => (
   </svg>
 );
 
+const ZoomIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"
+    />
+  </svg>
+);
+
+const HeartIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+    />
+  </svg>
+);
+
 // Custom hook untuk Intersection Observer (Lazy Loading)
 const useIntersectionObserver = (options) => {
   const [entry, setEntry] = useState({});
@@ -171,7 +203,7 @@ const useIntersectionObserver = (options) => {
   return [setNode, entry];
 };
 
-// Komponen Lazy Image dengan fade-in effect
+// Komponen Lazy Image dengan fade-in effect - FIXED VERSION
 const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
   const [ref, entry] = useIntersectionObserver({
     threshold: 0.1,
@@ -186,26 +218,29 @@ const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
   return (
     <div
       ref={ref}
-      className={`relative overflow-hidden bg-gray-200 ${className}`}
+      className={`group relative overflow-hidden bg-gray-200 cursor-pointer transform transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${className}`}
       onClick={onClick}
     >
-      {entry.isIntersecting && (
+      {/* Loading placeholder */}
+      {entry.isIntersecting && !loaded && !error && (
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Image */}
+      {entry.isIntersecting && !error && (
         <img
           src={src}
           alt={alt}
           onLoad={handleLoad}
           onError={handleError}
-          className={`w-full h-full object-cover cursor-pointer transition-all duration-500 hover:scale-105 ${
+          className={`w-full h-full object-cover transition-all duration-700 transform group-hover:scale-110 ${
             loaded ? "opacity-100" : "opacity-0"
           } ${error ? "hidden" : ""}`}
         />
-      )}
-
-      {/* Loading placeholder */}
-      {entry.isIntersecting && !loaded && !error && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-        </div>
       )}
 
       {/* Error placeholder */}
@@ -215,12 +250,50 @@ const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
         </div>
       )}
 
-      {/* Image overlay dengan info */}
-      <div className="absolute inset-0 bg-opacity-0 hover:bg-opacity-40 transition-all duration-300 flex items-end">
-        <div className="p-4 text-white transform translate-y-full hover:translate-y-0 transition-transform duration-300">
-          <h4 className="font-semibold text-sm">{bonsai.title}</h4>
-          <p className="text-xs opacity-90">{bonsai.subtitle}</p>
-          <p className="text-xs opacity-75 capitalize">{bonsai.category}</p>
+      {/* ✅ FIXED OVERLAY - Using proper opacity transitions */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+        {/* Top Icons */}
+        <div className="absolute top-4 right-4 flex gap-2 transform translate-y-[-20px] group-hover:translate-y-0 transition-transform duration-500">
+          <button className="w-8 h-8 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-colors">
+            <HeartIcon />
+          </button>
+          <button className="w-8 h-8 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-colors">
+            <ZoomIcon />
+          </button>
+        </div>
+
+        {/* Category Badge */}
+        <div className="absolute top-4 left-4 transform translate-y-[-20px] group-hover:translate-y-0 transition-transform duration-500">
+          <span className="px-3 py-1 bg-green-600/90 text-white text-xs font-bold rounded-full capitalize backdrop-blur-sm">
+            {bonsai.category}
+          </span>
+        </div>
+
+        {/* Bottom Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <div className="text-white">
+            <h4 className="font-bold text-sm mb-1 line-clamp-1">
+              {bonsai.title}
+            </h4>
+            <p className="text-green-300 text-xs font-medium mb-1">
+              {bonsai.subtitle}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-white/80 text-xs">{bonsai.age}</span>
+              {bonsai.price && (
+                <span className="text-green-400 font-bold text-xs">
+                  Rp {bonsai.price / 1000}K
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Center Zoom Icon */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100">
+          <div className="w-12 h-12 bg-black/30 backdrop-blur-sm border-2 border-white/50 rounded-full flex items-center justify-center">
+            <ZoomIcon />
+          </div>
         </div>
       </div>
     </div>
@@ -338,23 +411,30 @@ const Lightbox = ({
       {images.length > 1 && (
         <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
           <div className="flex gap-2 max-w-md overflow-x-auto">
-            {images.map((img, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  /* akan dihandle oleh parent */
-                }}
-                className={`w-16 h-12 flex-shrink-0 rounded overflow-hidden border-2 ${
-                  index === currentIndex ? "border-white" : "border-transparent"
-                }`}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
+            {images
+              .slice(Math.max(0, currentIndex - 2), currentIndex + 3)
+              .map((img, index) => {
+                const actualIndex = Math.max(0, currentIndex - 2) + index;
+                return (
+                  <button
+                    key={actualIndex}
+                    onClick={() => {
+                      // Will be handled by parent component
+                    }}
+                    className={`w-16 h-12 flex-shrink-0 rounded overflow-hidden border-2 ${
+                      actualIndex === currentIndex
+                        ? "border-white"
+                        : "border-transparent"
+                    }`}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                );
+              })}
           </div>
         </div>
       )}
@@ -546,6 +626,12 @@ export default function GalleryPage() {
 
   const categories = getCategories();
 
+  // Generate consistent heights for masonry layout
+  const getImageHeight = useCallback((index) => {
+    const heights = ["h-48", "h-56", "h-64", "h-52", "h-60"];
+    return heights[index % heights.length];
+  }, []);
+
   return (
     <div className="font-sans bg-gray-50 min-h-screen">
       <Navbar />
@@ -666,9 +752,9 @@ export default function GalleryPage() {
                     <LazyImage
                       src={image.src}
                       alt={image.alt}
-                      className={`w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ${
-                        Math.random() > 0.5 ? "h-64" : "h-48"
-                      }`}
+                      className={`w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ${getImageHeight(
+                        index
+                      )}`}
                       onClick={() => openLightbox(index)}
                       bonsai={image.bonsai}
                       imageIndex={index}
@@ -833,6 +919,16 @@ export default function GalleryPage() {
           onClick={() => setCategoryFilterOpen(false)}
         />
       )}
+
+      {/* Custom CSS */}
+      <style jsx>{`
+        .line-clamp-1 {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   );
 }

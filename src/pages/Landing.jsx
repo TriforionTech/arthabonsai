@@ -718,11 +718,11 @@ const AboutPreview = () => {
   );
 };
 
-// Gallery Preview Component
+// Gallery Preview Component - FIXED OVERLAY
 const GalleryPreview = ({ collections }) => {
   const [ref, isVisible] = useIntersectionObserver();
 
-  // ✅ SOLUSI: Generate tinggi yang konsisten berdasarkan index
+  // Simple gallery images sesuai pola yang ada
   const galleryImages = useMemo(() => {
     const images = [];
     collections.slice(0, 8).forEach((product) => {
@@ -741,7 +741,6 @@ const GalleryPreview = ({ collections }) => {
     });
     return images.slice(0, 12).map((image, index) => ({
       ...image,
-      // ✅ Konsisten: tinggi berdasarkan index, bukan random
       height: index % 3 === 0 ? "h-64" : index % 3 === 1 ? "h-48" : "h-56",
     }));
   }, [collections]);
@@ -749,6 +748,7 @@ const GalleryPreview = ({ collections }) => {
   return (
     <section ref={ref} className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
+        {/* Header sesuai pola website */}
         <div
           className={`text-center mb-16 transform transition-all duration-700 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
@@ -766,11 +766,11 @@ const GalleryPreview = ({ collections }) => {
           </p>
         </div>
 
-        {/* Masonry Grid - FIXED */}
+        {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
           {galleryImages.map((image, index) => (
             <div
-              key={`${image.src}-${index}`} // ✅ Key yang lebih stabil
+              key={`${image.src}-${index}`}
               className={`break-inside-avoid transform transition-all duration-700 ${
                 isVisible
                   ? "translate-y-0 opacity-100"
@@ -782,10 +782,11 @@ const GalleryPreview = ({ collections }) => {
                 <img
                   src={image.src}
                   alt={image.title}
-                  // ✅ PERBAIKAN: Gunakan height yang sudah di-calculate, bukan random
                   className={`w-full object-cover transition-transform duration-300 group-hover:scale-110 ${image.height}`}
                 />
-                <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-end">
+
+                {/* ✅ PERBAIKAN: Hapus bg-black, gunakan hanya opacity */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end">
                   <div className="p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <h4 className="font-semibold text-sm">{image.title}</h4>
                     <p className="text-xs opacity-75 capitalize">
@@ -798,6 +799,7 @@ const GalleryPreview = ({ collections }) => {
           ))}
         </div>
 
+        {/* CTA sesuai pola website */}
         <div className="text-center mt-12">
           <a
             href="/gallery"
