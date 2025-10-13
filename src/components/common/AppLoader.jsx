@@ -1,17 +1,17 @@
-import { useEffect, useState, Suspense, lazy } from "react";
-
+import { useEffect, useState } from "react";
 import LoadingScreen from "./LoadingScreen";
-
-// Lazy load the router untuk code splitting yang lebih baik
-const AppRouter = lazy(() => import("../../router/AppRouter"));
+import AppRouter from "../../router/AppRouter";
 
 export default function AppLoader() {
   const [isReady, setIsReady] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
-    // Preload critical resources dengan progress tracking
     const preloadResources = async () => {
+      // Simulate router loading (optional, for smoother progress)
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      setLoadingProgress(20);
+
       const criticalImages = [
         "/src/assets/images/landing/hero-bg.webp",
         "/src/assets/images/landing/bonsai1.webp",
@@ -26,7 +26,8 @@ export default function AppLoader() {
           const img = new Image();
           img.onload = img.onerror = () => {
             loaded++;
-            setLoadingProgress((loaded / total) * 100);
+            // Start progress from 20% and use the remaining 80% for images
+            setLoadingProgress(20 + (loaded / total) * 80);
             resolve();
           };
           img.src = src;
@@ -44,9 +45,5 @@ export default function AppLoader() {
     preloadResources();
   }, []);
 
-  return (
-    <Suspense fallback={<LoadingScreen />}>
-      {isReady ? <AppRouter /> : <LoadingScreen progress={loadingProgress} />}
-    </Suspense>
-  );
+  return isReady ? <AppRouter /> : <LoadingScreen progress={loadingProgress} />;
 }
