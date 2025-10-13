@@ -1,4 +1,6 @@
 // Centralized data dengan lazy loading support
+import bonsai1 from "/src/assets/images/landing/bonsai1.webp";
+
 export const bonsaiCollections = [
   {
     id: 1,
@@ -16,7 +18,7 @@ export const bonsaiCollections = [
       season: "All seasons",
     },
     images: {
-      thumbnail: "/src/assets/images/landing/bonsai1.webp",
+      thumbnail: bonsai1,
       gallery: [
         "/src/assets/images/gallery/maple-1.webp",
         "/src/assets/images/gallery/maple-2.webp",
