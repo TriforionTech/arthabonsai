@@ -203,7 +203,7 @@ const useIntersectionObserver = (options) => {
   return [setNode, entry];
 };
 
-// Komponen Lazy Image dengan fade-in effect - FIXED VERSION
+// Komponen Lazy Image dengan fade-in effect
 const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
   const [ref, entry] = useIntersectionObserver({
     threshold: 0.1,
@@ -250,7 +250,7 @@ const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
         </div>
       )}
 
-      {/* ✅ FIXED OVERLAY - Using proper opacity transitions */}
+      {/* Fixed overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
         {/* Top Icons */}
         <div className="absolute top-4 right-4 flex gap-2 transform translate-y-[-20px] group-hover:translate-y-0 transition-transform duration-500">
@@ -282,7 +282,7 @@ const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
               <span className="text-white/80 text-xs">{bonsai.age}</span>
               {bonsai.price && (
                 <span className="text-green-400 font-bold text-xs">
-                  Rp {bonsai.price / 1000}K
+                  Rp {(bonsai.price / 1000).toFixed(0)}K
                 </span>
               )}
             </div>
@@ -295,6 +295,232 @@ const LazyImage = ({ src, alt, className, onClick, bonsai, imageIndex }) => {
             <ZoomIcon />
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+// ✅ FIXED: Responsive Pagination Component
+const ResponsivePagination = ({ currentPage, totalPages, onPageChange }) => {
+  const [showAllPages, setShowAllPages] = useState(false);
+
+  // Generate visible page numbers for desktop
+  const getDesktopPages = () => {
+    const visiblePages = [];
+    const maxVisible = 7;
+
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        visiblePages.push(i);
+      }
+    } else {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) {
+          visiblePages.push(i);
+        }
+        visiblePages.push("...", totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        visiblePages.push(1, "...");
+        for (let i = totalPages - 4; i <= totalPages; i++) {
+          visiblePages.push(i);
+        }
+      } else {
+        visiblePages.push(
+          1,
+          "...",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "...",
+          totalPages
+        );
+      }
+    }
+
+    return visiblePages;
+  };
+
+  // Generate visible page numbers for mobile
+  const getMobilePages = () => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (showAllPages) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    const pages = new Set();
+    pages.add(1); // Always show first page
+
+    if (currentPage > 1) pages.add(currentPage - 1);
+    pages.add(currentPage);
+    if (currentPage < totalPages) pages.add(currentPage + 1);
+
+    pages.add(totalPages); // Always show last page
+
+    return Array.from(pages).sort((a, b) => a - b);
+  };
+
+  const desktopPages = getDesktopPages();
+  const mobilePages = getMobilePages();
+
+  return (
+    <div className="mt-12">
+      {/* Desktop Pagination */}
+      <div className="hidden sm:flex justify-center">
+        <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          {/* Previous Button */}
+          <button
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white transition-colors border-r border-gray-200"
+          >
+            <ChevronLeftIcon className="w-4 h-4" />
+            <span>Sebelumnya</span>
+          </button>
+
+          {/* Page Numbers */}
+          <div className="flex">
+            {desktopPages.map((page, index) => {
+              if (page === "...") {
+                return (
+                  <span
+                    key={`ellipsis-${index}`}
+                    className="flex items-center justify-center px-4 py-3 text-gray-400 text-sm border-r border-gray-200 last:border-r-0"
+                  >
+                    ⋯
+                  </span>
+                );
+              }
+
+              const isCurrentPage = page === currentPage;
+
+              return (
+                <button
+                  key={page}
+                  onClick={() => onPageChange(page)}
+                  className={`flex items-center justify-center px-4 py-3 text-sm font-medium border-r border-gray-200 last:border-r-0 transition-colors ${
+                    isCurrentPage
+                      ? "bg-green-600 text-white"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                  aria-label={`Page ${page}`}
+                  aria-current={isCurrentPage ? "page" : undefined}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Next Button */}
+          <button
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white transition-colors border-l border-gray-200"
+          >
+            <span>Selanjutnya</span>
+            <ChevronRightIcon className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Pagination */}
+      <div className="sm:hidden space-y-4">
+        {/* Page Info */}
+        <div className="text-center">
+          <span className="text-sm text-gray-600 bg-white px-4 py-2 rounded-full shadow-sm">
+            Halaman{" "}
+            <span className="font-semibold text-green-600">{currentPage}</span>{" "}
+            dari <span className="font-semibold">{totalPages}</span>
+          </span>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex items-center justify-between gap-4">
+          <button
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-colors"
+          >
+            <ChevronLeftIcon className="w-4 h-4" />
+            <span>Sebelumnya</span>
+          </button>
+
+          <button
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-colors"
+          >
+            <span>Selanjutnya</span>
+            <ChevronRightIcon className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Quick Page Numbers */}
+        <div className="flex justify-center">
+          <div className="flex items-center gap-1 bg-white rounded-lg p-2 shadow-sm border border-gray-200 max-w-full overflow-x-auto">
+            {mobilePages.map((pageNum, index) => {
+              const prevPage = mobilePages[index - 1];
+              const showEllipsis = prevPage && pageNum - prevPage > 1;
+
+              return (
+                <React.Fragment key={pageNum}>
+                  {showEllipsis && (
+                    <span className="px-2 text-gray-400 text-sm flex-shrink-0">
+                      ...
+                    </span>
+                  )}
+                  <button
+                    onClick={() => onPageChange(pageNum)}
+                    className={`w-8 h-8 text-sm font-medium rounded-md flex-shrink-0 transition-colors ${
+                      currentPage === pageNum
+                        ? "bg-green-600 text-white"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                </React.Fragment>
+              );
+            })}
+
+            {!showAllPages && totalPages > 5 && (
+              <button
+                onClick={() => setShowAllPages(true)}
+                className="px-3 py-1 text-xs text-green-600 hover:bg-green-50 rounded-md flex-shrink-0 transition-colors"
+              >
+                Semua
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Jump to Page for large pagination */}
+        {totalPages > 10 && (
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 bg-white rounded-lg px-4 py-2 shadow-sm border border-gray-200">
+              <span className="text-sm text-gray-600">Lompat ke:</span>
+              <input
+                type="number"
+                min="1"
+                max={totalPages}
+                className="w-14 px-2 py-1 text-sm border border-gray-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    const page = parseInt(e.target.value);
+                    if (page >= 1 && page <= totalPages) {
+                      onPageChange(page);
+                      e.target.value = "";
+                    }
+                  }
+                }}
+                placeholder={currentPage.toString()}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -335,7 +561,7 @@ const Lightbox = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center">
-      {/* Header dengan info dan kontrol */}
+      {/* Header */}
       <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black to-transparent p-4 z-10">
         <div className="flex items-center justify-between text-white">
           <div className="flex items-center gap-3">
@@ -393,10 +619,10 @@ const Lightbox = ({
         />
       </div>
 
-      {/* Footer dengan metadata */}
+      {/* Footer */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
         <div className="text-white text-center">
-          <div className="flex justify-center items-center gap-6 text-sm">
+          <div className="flex justify-center items-center gap-6 text-sm flex-wrap">
             <span className="px-3 py-1 bg-green-600 rounded-full capitalize">
               {currentImage.bonsai.category}
             </span>
@@ -406,38 +632,6 @@ const Lightbox = ({
           </div>
         </div>
       </div>
-
-      {/* Thumbnail navigation */}
-      {images.length > 1 && (
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-          <div className="flex gap-2 max-w-md overflow-x-auto">
-            {images
-              .slice(Math.max(0, currentIndex - 2), currentIndex + 3)
-              .map((img, index) => {
-                const actualIndex = Math.max(0, currentIndex - 2) + index;
-                return (
-                  <button
-                    key={actualIndex}
-                    onClick={() => {
-                      // Will be handled by parent component
-                    }}
-                    className={`w-16 h-12 flex-shrink-0 rounded overflow-hidden border-2 ${
-                      actualIndex === currentIndex
-                        ? "border-white"
-                        : "border-transparent"
-                    }`}
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                );
-              })}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
@@ -531,19 +725,18 @@ export default function GalleryPage() {
   // State management
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [layoutMode, setLayoutMode] = useState("masonry"); // 'masonry' atau 'grid'
+  const [layoutMode, setLayoutMode] = useState("masonry");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [categoryFilterOpen, setCategoryFilterOpen] = useState(false);
   const [imagesPerPage] = useState(24);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Menyiapkan data gambar dari koleksi
+  // Data preparation
   const allImages = useMemo(() => {
     let images = [];
 
     bonsaiCollections.forEach((bonsai) => {
-      // Tambahkan thumbnail
       images.push({
         src: bonsai.images.thumbnail,
         alt: `${bonsai.title} - Thumbnail`,
@@ -551,7 +744,6 @@ export default function GalleryPage() {
         type: "thumbnail",
       });
 
-      // Tambahkan gallery images
       bonsai.images.gallery.forEach((imageSrc, index) => {
         images.push({
           src: imageSrc,
@@ -565,18 +757,16 @@ export default function GalleryPage() {
     return images;
   }, []);
 
-  // Filter dan search logic
+  // Filter and search logic
   const filteredImages = useMemo(() => {
     let filtered = allImages;
 
-    // Apply search filter
     if (searchTerm.trim()) {
       const searchResults = searchBonsai(searchTerm.trim());
       const searchIds = new Set(searchResults.map((b) => b.id));
       filtered = filtered.filter((img) => searchIds.has(img.bonsai.id));
     }
 
-    // Apply category filter
     if (selectedCategory) {
       filtered = filtered.filter(
         (img) => img.bonsai.category === selectedCategory
@@ -586,7 +776,6 @@ export default function GalleryPage() {
     return filtered;
   }, [allImages, searchTerm, selectedCategory]);
 
-  // Pagination
   const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
   const paginatedImages = filteredImages.slice(
     (currentPage - 1) * imagesPerPage,
@@ -779,46 +968,13 @@ export default function GalleryPage() {
               </div>
             )}
 
-            {/* Pagination */}
+            {/* ✅ FIXED: Responsive Pagination */}
             {totalPages > 1 && (
-              <div className="mt-12 flex justify-center">
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Sebelumnya
-                  </button>
-
-                  {[...Array(Math.min(5, totalPages))].map((_, index) => {
-                    const pageNum = Math.max(1, currentPage - 2) + index;
-                    if (pageNum > totalPages) return null;
-
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={`px-4 py-2 text-sm font-medium border ${
-                          currentPage === pageNum
-                            ? "bg-green-600 text-white border-green-600"
-                            : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50"
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  })}
-
-                  <button
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Selanjutnya
-                  </button>
-                </div>
-              </div>
+              <ResponsivePagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             )}
           </>
         )}
@@ -927,6 +1083,16 @@ export default function GalleryPage() {
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
           overflow: hidden;
+        }
+
+        /* Hide scrollbar but allow scrolling */
+        .overflow-x-auto::-webkit-scrollbar {
+          display: none;
+        }
+
+        .overflow-x-auto {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </div>

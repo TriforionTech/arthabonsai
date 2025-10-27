@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Navbar from "../components/common/Navbar";
+import { Link } from "react-router-dom";
 import Footer from "../components/common/Footer";
 
 // Import data
@@ -437,9 +438,12 @@ const FeaturedSection = ({ products }) => {
                 </div>
 
                 <div className="flex gap-2">
-                  <button className="flex-1 px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors">
+                  <Link
+                    to={`/product/${product.id}`} // Tambahkan path ke detail produk
+                    className="flex-1 px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition-colors"
+                  >
                     Lihat Detail
-                  </button>
+                  </Link>
                   <button className="px-4 py-2 border border-green-600 text-green-600 text-sm font-semibold rounded-lg hover:bg-green-50 transition-colors">
                     <svg
                       className="w-4 h-4"

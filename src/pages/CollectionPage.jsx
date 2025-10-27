@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useCallback } from "react";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
+import { Link } from "react-router-dom";
+
 import {
   bonsaiCollections,
   getCategories,
@@ -291,9 +293,13 @@ const BonsaiCard = ({ bonsai }) => (
           </span>
         </div>
         <div className="flex gap-2">
-          <button className="px-3 py-1 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+          <Link
+            to={`/product/${bonsai.id}`} // Tambahkan path ke detail produk
+            className="px-3 py-1 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+          >
             Detail
-          </button>
+          </Link>
+
           <button className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors">
             Pesan
           </button>
@@ -364,9 +370,13 @@ const BonsaiListItem = ({ bonsai }) => (
               </span>
             </div>
             <div className="flex flex-col gap-2">
-              <button className="px-4 py-2 text-sm bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
-                Lihat Detail
-              </button>
+              <Link
+                to={`/product/${bonsai.id}`} // Tambahkan path ke detail produk
+                className="px-3 py-1 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+              >
+                Detail
+              </Link>
+
               <button className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors">
                 Pesan Sekarang
               </button>
